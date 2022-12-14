@@ -73,12 +73,12 @@ def process_line(line):
                    '"$http_X_REQUEST_ID" "$http_X_RB_USER" $request_time'
 
     mask = re.sub(r'([\[\]\"{}])', r'\\\1', log_template)
-    pattern = re.sub('\$(\w+)', r'(?P<\1>.+)', mask)
+    pattern = re.sub(r'\$(\w+)', r'(?P<\1>.+)', mask)
     search_matches = re.search(pattern, line)
     request_time = search_matches['request_time']
     request = search_matches['request']
 
-    url_pattern = re.compile('((GET|POST) (?P<url>.+) (http\/\d\.\d))', re.I)
+    url_pattern = re.compile(r'((GET|POST) (?P<url>.+) (http\/\d\.\d))', re.I)
     url_search = re.search(url_pattern, request)
     url = url_search['url'] if url_search else request
     return url, request_time
