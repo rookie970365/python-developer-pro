@@ -21,12 +21,14 @@
 
 
 
-Cемпл лога:  nginx-access-ui.log-20170630.gz
+Cемпл лога:   
+
+*nginx-access-ui.log-20170630.gz*
 
 Запуск:
 
-python3 log_analyzer.py
+*python3 log_analyzer.py*
 
-python3 log_analyzer.py --config config.json
+*python3 log_analyzer.py --config config.json*
 
 
