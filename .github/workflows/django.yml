@@ -24,4 +24,5 @@ jobs:
 
     - name: Run Tests
       run: |
+        cd homework_log_analyzer
         python3 -m unittest
