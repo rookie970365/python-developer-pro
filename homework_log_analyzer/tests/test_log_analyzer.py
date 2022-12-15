@@ -1,3 +1,7 @@
+"""
+Модуль тестирования
+"""
+
 import os
 import unittest
 import log_analyzer
@@ -11,13 +15,23 @@ test_log_path = os.path.join(config.get("LOG_DIR"), "test-log-20170101")
 
 
 class TestLogAnalyzer(unittest.TestCase):
+    """
+    Класс TestLogAnalyzer
+    """
 
     def test_find_last_date_log(self):
-        last_date, last_log = log_analyzer.find_last_date_log(config.get("LOG_DIR"))
+        """
+        Тестирование  find_last_date_log
+        """
+        last_date = log_analyzer.find_last_date_log(config.get("LOG_DIR"))[0]
         self.assertTrue(last_date > '20170629')
         self.assertTrue(last_date < '20170631')
 
     def test_read_lines(self):
+        """
+        Тестирование  read_lines
+        """
+
         result = [
             ('/api/1/photogenic_banners/list/?server_name=WIN7RB1', '0.127'),
             ('/api/v2/banner/7763463', '0.151')
@@ -26,6 +40,10 @@ class TestLogAnalyzer(unittest.TestCase):
             self.assertTrue((url, time) in result)
 
     def test_process_line(self):
+        """
+        Тестирование process_line
+        """
+
         log_line1 = '1.126.153.80 -  - [29/Jun/2017:04:46:00 +0300] ' \
                     '"GET /agency/outgoings_stats/?date1=28-06-2017&' \
                     'date2=28-06-2017&date_type=day&do=1&rt=banner&' \
@@ -57,6 +75,10 @@ class TestLogAnalyzer(unittest.TestCase):
         )
 
     def test_create_report(self):
+        """
+        Тестирование create_report
+        """
+
         request_dict = {
             '/api/v2/banner/25019354': [0.39, 0.35],
             '/api/v2/banner/16852664': [0.199],
