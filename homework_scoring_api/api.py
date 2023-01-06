@@ -1,6 +1,4 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-# pylint: disable=C0114,C0115,C0116,C0301,R0903
+# pylint: disable=C0114,C0115,C0116,C0301,C0103,R0903,W0402,W0703,E1133
 
 from abc import ABC, abstractmethod
 import json
@@ -183,7 +181,7 @@ class ClientsInterestsRequest(BaseRequest):
     client_ids = ClientIDsField(required=True, nullable=False)
     date = DateField(required=False, nullable=True)
 
-    def get_result(self, is_admin, context, store):
+    def get_result(self, _, context, store):
         client_ids_list = getattr(self, 'client_ids', [])
         context["nclients"] = len(client_ids_list)
         result = {}

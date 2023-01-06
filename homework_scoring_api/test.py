@@ -1,3 +1,4 @@
+# pylint: disable=C0114,C0115,C0116,C0301
 import hashlib
 import datetime
 import functools
@@ -6,16 +7,14 @@ import unittest
 import api
 
 
-def cases(cases):
-    def decorator(f):
-        @functools.wraps(f)
+def cases(items):
+    def decorator(func):
+        @functools.wraps(func)
         def wrapper(*args):
-            for c in cases:
-                new_args = args + (c if isinstance(c, tuple) else (c,))
-                f(*new_args)
-
+            for i in items:
+                new_args = args + (i if isinstance(i, tuple) else (i,))
+                func(*new_args)
         return wrapper
-
     return decorator
 
 
@@ -28,7 +27,8 @@ class TestSuite(unittest.TestCase):
     def get_response(self, request):
         return api.method_handler({"body": request, "headers": self.headers}, self.context, self.settings)
 
-    def set_valid_auth(self, request):
+    @staticmethod
+    def set_valid_auth(request):
         if request.get("login") == api.ADMIN_LOGIN:
             request["token"] = hashlib.sha512((datetime.datetime.now().strftime("%Y%m%d%H") +
                                                api.ADMIN_SALT).encode('utf-8')).hexdigest()
