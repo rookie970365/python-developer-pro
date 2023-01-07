@@ -29,6 +29,7 @@ def get_score(store, phone, email, birthday=None, gender=None, first_name=None, 
 
 
 def get_interests(store, cid):
-    res = store.get("i:%s" % cid)
+    # res = store.get("i:%s" % cid)
+    res = store.get(f"i:{cid}")
     # return json.loads(r) if r else []
     return res if res else []
